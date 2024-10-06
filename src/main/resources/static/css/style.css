@@ -6,6 +6,10 @@ html {
    font-family: 'Noto Sans JP', sans-serif;
  }
 
+ h1 {
+    font-size: 1.5rem;
+  }
+
  a {
    color: #5196a6;
    text-decoration: none !important;
@@ -37,6 +41,15 @@ html {
  .samuraitravel-logo {
    height: 30px;
  }
+
+ .samuraitravel-btn {
+    background-color: #5196a6 !important;
+    transition: 0.1s;
+  }
+
+  .samuraitravel-btn:hover {
+    opacity: 0.8;
+  }
 
  @media screen and (min-width: 1400px) {
    .samuraitravel-container {
