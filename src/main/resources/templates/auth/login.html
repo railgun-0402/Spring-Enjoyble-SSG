@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- CSSファイル -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+
+    <title>ログイン</title>
+</head>
+<body>
+<div class="samuraitravel-wrapper">
+    <header>
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm samuraitravel-navbar">
+            <div class="container samuraitravel-container">
+                <a class="navbar-brand" th:href="@{/}">
+                    <img class="samuraitravel-logo me-1" th:src="@{/images/logo.png}" alt="SAMURAI Travel">
+                </a>
+
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/login}">ログイン</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">会員登録</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container pt-4 pb-5 samuraitravel-container">
+            <div class="row justify-content-center">
+                <div class="col-xl-3 col-lg-4 col-md-5 col-sm-7">
+                    <h1 class="mb-4 text-center">ログイン</h1>
+
+                    <div th:if="${param.error}" class="alert alert-danger">
+                        メールアドレスまたはパスワードが正しくありません。
+                    </div>
+
+                    <form th:action="@{/login}" method="post">
+                        <div class="form-group mb-3">
+                            <input type="text" class="form-control" name="username" autocomplete="email" placeholder="メールアドレス" autofocus>
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="password" class="form-control" name="password" autocomplete="new-password" placeholder="パスワード">
+                        </div>
+
+                        <div class="d-flex justify-content-center my-4">
+                            <button type="submit" class="btn text-white shadow-sm w-100 samuraitravel-btn">ログイン</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center">
+                        <a href="#">会員登録</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <p class="text-center text-muted small mb-0">&copy; SAMURAI Travel All rights reserved.</p>
+        </div>
+    </footer>
+</div>
+
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>
