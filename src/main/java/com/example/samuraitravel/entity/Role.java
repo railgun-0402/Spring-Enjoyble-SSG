@@ -1,9 +1,11 @@
 package com.example.samuraitravel.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
-@Table(name = "rorles")
+@Table(name = "roles")
+@Data
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
