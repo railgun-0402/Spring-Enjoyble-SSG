@@ -19,6 +19,10 @@
             <div th:if="${param.loggedOut}" class="alert alert-info">
                 ログアウトしました。
             </div>
+
+            <div th:if="${successMessage}" class="alert alert-info">
+                <span th:text="${successMessage}"></span>
+            </div>
         </div>
     </main>
 
