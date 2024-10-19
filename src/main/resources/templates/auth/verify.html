@@ -1,0 +1,30 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="~{fragment :: meta}"></div>
+    <div th:replace="~{fragment :: styles}"></div>
+
+    <title>メール認証</title>
+</head>
+<body>
+    <div class="samuraitravel-wrapper">
+        <div th:replace="~{fragment :: header}"></div>
+
+        <main>
+            <div class="container pt-4 pb-5 samuraitravel-container">
+                <div th:if="${successMessage}" class="alert alert-info">
+                    <sapn th:text="${successMessage}"></sapn>
+                </div>
+
+                <div th:if="${errorMessage}" class="alert alert-danger">
+                    <sapn th:text="${errorMessage}"></sapn>
+                </div>
+            </div>
+        </main>
+
+        <div th:replace="~{fragment :: footer}"></div>
+    </div>
+
+    <div th:replace="~{fragment :: scripts}"></div>
+</body>
+</html>
