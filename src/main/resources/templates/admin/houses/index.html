@@ -1,0 +1,63 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="~{fragment :: meta}"></div>
+
+    <div th:replace="~{fragment :: styles}"></div>
+
+    <title>民宿一覧</title>
+</head>
+<body>
+    <div class="samuraitravel-wrapper">
+        <!--header-->
+        <div th:replace="~{fragment :: header}"></div>
+
+        <main>
+            <div class="container pt-4 pb-5 samuraitravel-container">
+                <div class="row justify-content-center">
+                    <div class="col-xxl-9 col-xl-10 col-lg-11">
+
+                        <!--title-->
+                        <h1 class="mb-4 text-center">民宿一覧</h1>
+
+                        <!--登録ボタン-->
+                        <div class="d-flex justify-content-end">
+                            <a href="#" class="btn text-white shadow-sm mb-3 samuraitravel-btn">登録</a>
+                        </div>
+
+                        <!--一覧テーブル-->
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">民宿名</th>
+                                <th scope="col">郵便番号</th>
+                                <th scope="col">住所</th>
+                                <th scope="col">電話番号</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="house : ${houses}">
+                                <td th:text="${house.id}"></td>
+                                <td th:text="${house.name}"></td>
+                                <td th:text="${house.postalCode}"></td>
+                                <td th:text="${house.address}"></td>
+                                <td th:text="${house.phoneNumber}"></td>
+                                <td><a href="#">詳細</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!--footer-->
+        <div th:replace="~{fragment :: footer}"></div>
+    </div>
+
+    <div th:replace="~{fragment :: scripts}"></div>
+
+</body>
+</html>
