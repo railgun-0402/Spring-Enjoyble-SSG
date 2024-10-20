@@ -1,0 +1,22 @@
+package com.example.samuraitravel.service;
+
+import com.example.samuraitravel.entity.House;
+import com.example.samuraitravel.repository.HouseRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class HouseService {
+    private final HouseRepository houseRepository;
+
+    /* Constructor */
+    public HouseService(HouseRepository houseRepository) {
+        this.houseRepository = houseRepository;
+    }
+
+    /* Get All Houses Data */
+    public List<House> findAllHouses() {
+        return houseRepository.findAll();
+    }
+}
