@@ -2,6 +2,8 @@ package com.example.samuraitravel.service;
 
 import com.example.samuraitravel.entity.House;
 import com.example.samuraitravel.repository.HouseRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +18,7 @@ public class HouseService {
     }
 
     /* Get All Houses Data */
-    public List<House> findAllHouses() {
-        return houseRepository.findAll();
+    public Page<House> findAllHouses(Pageable pageable) {
+        return houseRepository.findAll(pageable);
     }
 }
