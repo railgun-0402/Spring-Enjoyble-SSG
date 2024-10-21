@@ -21,4 +21,9 @@ public class HouseService {
     public Page<House> findAllHouses(Pageable pageable) {
         return houseRepository.findAll(pageable);
     }
+
+    /* Get Hit Houses Data */
+    public Page<House> findHousesByNameLike(String keyword, Pageable pageable) {
+        return houseRepository.findByNameLike("%" + keyword + "%", pageable);
+    }
 }

@@ -20,8 +20,14 @@
                         <!--title-->
                         <h1 class="mb-4 text-center">民宿一覧</h1>
 
-                        <!--登録ボタン-->
-                        <div class="d-flex justify-content-end">
+                        <!--登録・検索ボタン-->
+                        <div class="d-flex justify-content-between align-items-end flex-wrap">
+                            <form method="get" th:action="@{/admin/houses}" class="mb-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="民宿名">
+                                    <button type="submit" class="btn text-white shadow-sm samuraitravel-btn">検索</button>
+                                </div>
+                            </form>
                             <a href="#" class="btn text-white shadow-sm mb-3 samuraitravel-btn">登録</a>
                         </div>
 
@@ -55,15 +61,15 @@
                                 <ul class="pagination">
                                     <li class="page-item">
                                         <span th:if="${housePage.isFirst()}" class="page-link disabled">前</span>
-                                        <a th:unless="${housePage.isFirst()}" th:href="@{/admin/houses(page = ${housePage.getNumber() - 1})}" class="page-link samuraitravel-page-link">前</a>
+                                        <a th:unless="${housePage.isFirst()}" th:href="@{/admin/houses(page = ${housePage.getNumber() - 1}, keyword = ${keyword})}" class="page-link samuraitravel-page-link">前</a>
                                     </li>
                                     <li th:each="i : ${#numbers.sequence(0, housePage.getTotalPages() - 1)}" class="page-item">
                                         <span th:if="${i == housePage.getNumber()}" class="page-link active samuraitravel-active" th:text="${i + 1}"></span>
-                                        <a th:unless="${i == housePage.getNumber()}" th:href="@{/admin/houses(page = ${i})}" class="page-link samuraitravel-page-link" th:text="${i + 1}"></a>
+                                        <a th:unless="${i == housePage.getNumber()}" th:href="@{/admin/houses(page = ${i}, keyword = ${keyword})}" class="page-link samuraitravel-page-link" th:text="${i + 1}"></a>
                                     </li>
                                     <li class="page-item">
                                         <span th:if="${housePage.isLast()}" class="page-link disabled">次</span>
-                                        <a th:unless="${housePage.isLast()}" th:href="@{/admin/houses(page = ${housePage.getNumber() + 1})}" class="page-link samuraitravel-page-link">次</a>
+                                        <a th:unless="${housePage.isLast()}" th:href="@{/admin/houses(page = ${housePage.getNumber() + 1}, keyword = ${keyword})}" class="page-link samuraitravel-page-link">次</a>
                                     </li>
                                 </ul>
                             </nav>
