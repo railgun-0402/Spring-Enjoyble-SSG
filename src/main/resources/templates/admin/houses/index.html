@@ -38,7 +38,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="house : ${houses}">
+                            <tr th:each="house : ${housePage}">
                                 <td th:text="${house.id}"></td>
                                 <td th:text="${house.name}"></td>
                                 <td th:text="${house.postalCode}"></td>
@@ -48,6 +48,26 @@
                             </tr>
                             </tbody>
                         </table>
+
+                        <!-- ページネーション -->
+                        <div th:if="${housePage.getTotalPages() > 1}" class="d-flex justify-content-center">
+                            <nav aria-label="民宿一覧ページ">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <span th:if="${housePage.isFirst()}" class="page-link disabled">前</span>
+                                        <a th:unless="${housePage.isFirst()}" th:href="@{/admin/houses(page = ${housePage.getNumber() - 1})}" class="page-link samuraitravel-page-link">前</a>
+                                    </li>
+                                    <li th:each="i : ${#numbers.sequence(0, housePage.getTotalPages() - 1)}" class="page-item">
+                                        <span th:if="${i == housePage.getNumber()}" class="page-link active samuraitravel-active" th:text="${i + 1}"></span>
+                                        <a th:unless="${i == housePage.getNumber()}" th:href="@{/admin/houses(page = ${i})}" class="page-link samuraitravel-page-link" th:text="${i + 1}"></a>
+                                    </li>
+                                    <li class="page-item">
+                                        <span th:if="${housePage.isLast()}" class="page-link disabled">次</span>
+                                        <a th:unless="${housePage.isLast()}" th:href="@{/admin/houses(page = ${housePage.getNumber() + 1})}" class="page-link samuraitravel-page-link">次</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
