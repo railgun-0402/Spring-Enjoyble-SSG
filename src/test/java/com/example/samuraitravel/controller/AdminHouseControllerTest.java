@@ -23,7 +23,7 @@ public class AdminHouseControllerTest {
     public void 未ログインの場合は管理者用の民宿一覧ページからログインページにリダイレクトする() throws Exception {
         mockMvc.perform(get("/admin/houses"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("http://localhost/logi"));
+                .andExpect(redirectedUrl("http://localhost/login"));
     }
 
     @Test
