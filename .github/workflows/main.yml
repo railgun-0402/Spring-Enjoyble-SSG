@@ -16,15 +16,10 @@ jobs:
       mysql:
         image: mysql:8.0
         ports:
-          - 8889:3306
+          - 3306:3306
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: springboot_samuraitravel
-        options: >-
-          --health-cmd="mysqladmin ping --silent"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
 
     steps:
       - name: Checkout code
@@ -36,23 +31,5 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
-      - name: Set up MySQL connection
-        run: |
-          sudo apt-get install -y mysql-client
-          until mysql --host=localhost --port=8889 --user=root --password=root --execute="SHOW DATABASES"; do
-            echo "Waiting for MySQL to be ready..."
-            sleep 10
-          done
-
       - name: Run Maven tests
-        run: mvn test
-        env:
-          MYSQL_HOST: 127.0.0.1
+        run: mvn test -Dspring.profiles.active=ci
