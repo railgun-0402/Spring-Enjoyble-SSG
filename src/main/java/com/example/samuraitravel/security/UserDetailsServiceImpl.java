@@ -23,7 +23,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         try {
-            System.out.println("UserDetailsServiceImpl");
             User user = userRepository.findByEmail(email);
             String userRoleName = user.getRole().getName();
             Collection<GrantedAuthority> authorities = new ArrayList<>();
