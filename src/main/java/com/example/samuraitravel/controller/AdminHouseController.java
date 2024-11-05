@@ -9,8 +9,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/houses")
@@ -38,5 +42,21 @@ public class AdminHouseController {
         model.addAttribute("keyword", keyword);
 
         return "admin/houses/index";
+    }
+
+    @GetMapping("/{id}")
+    public String show(@PathVariable (name = "id") Integer id, RedirectAttributes redirectAttributes, Model model) {
+        Optional<House> optionalHouse = houseService.findHouseById(id);
+
+        if (optionalHouse.isEmpty()) {
+            redirectAttributes.addAttribute("errorMessage", "民宿が見つかりませんでした。");
+
+            return "redirect:/admin/houses";
+        }
+
+        House house = optionalHouse.get();
+        model.addAttribute("house", house);
+
+        return "admin/houses/show";
     }
 }

@@ -68,6 +68,11 @@ html {
     border-color: #5196a6 !important;
   }
 
+  .samuraitravel-pre-wrap {
+    /* 改行文字で行を折り返す */
+    white-space: pre-wrap;
+  }
+
  @media screen and (min-width: 1400px) {
    .samuraitravel-container {
      max-width: 1200px;

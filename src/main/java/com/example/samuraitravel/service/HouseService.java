@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HouseService {
@@ -25,5 +26,10 @@ public class HouseService {
     /* Get Hit Houses Data */
     public Page<House> findHousesByNameLike(String keyword, Pageable pageable) {
         return houseRepository.findByNameLike("%" + keyword + "%", pageable);
+    }
+
+    /* Get Houses by ID */
+    public Optional<House> findHouseById(Integer id) {
+        return houseRepository.findById(id);
     }
 }
