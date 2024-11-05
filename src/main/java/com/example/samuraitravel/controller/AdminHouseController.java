@@ -1,6 +1,7 @@
 package com.example.samuraitravel.controller;
 
 import com.example.samuraitravel.entity.House;
+import com.example.samuraitravel.form.HouseRegisterForm;
 import com.example.samuraitravel.service.HouseService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,6 +45,7 @@ public class AdminHouseController {
         return "admin/houses/index";
     }
 
+    /* 民宿詳細 */
     @GetMapping("/{id}")
     public String show(@PathVariable (name = "id") Integer id, RedirectAttributes redirectAttributes, Model model) {
         Optional<House> optionalHouse = houseService.findHouseById(id);
@@ -58,5 +60,12 @@ public class AdminHouseController {
         model.addAttribute("house", house);
 
         return "admin/houses/show";
+    }
+
+    /* 民宿登録 */
+    @GetMapping("/register")
+    public String register(Model model) {
+        model.addAttribute("houseRegisterForm", new HouseRegisterForm());
+        return "admin/houses/register";
     }
 }
