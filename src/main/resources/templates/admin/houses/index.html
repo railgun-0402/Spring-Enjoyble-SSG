@@ -31,6 +31,10 @@
                             <a href="#" class="btn text-white shadow-sm mb-3 samuraitravel-btn">登録</a>
                         </div>
 
+                        <div th:if="${errorMessage}" class="alert alert-danger">
+                            <span th:text="${errorMessage}"></span>
+                        </div>
+
                         <!--一覧テーブル-->
                         <table class="table">
                             <thead>
@@ -50,7 +54,7 @@
                                 <td th:text="${house.postalCode}"></td>
                                 <td th:text="${house.address}"></td>
                                 <td th:text="${house.phoneNumber}"></td>
-                                <td><a href="#">詳細</a></td>
+                                <td><a th:href="@{/admin/houses/__${house.id}__}">詳細</a></td>
                             </tr>
                             </tbody>
                         </table>
