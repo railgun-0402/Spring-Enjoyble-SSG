@@ -9,10 +9,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
@@ -67,5 +66,23 @@ public class AdminHouseController {
     public String register(Model model) {
         model.addAttribute("houseRegisterForm", new HouseRegisterForm());
         return "admin/houses/register";
+    }
+
+    /* 民宿DB登録 */
+    @PostMapping("/create")
+    public String create(@ModelAttribute @Validated HouseRegisterForm houseRegisterForm,
+                         BindingResult bindingResult,
+                         RedirectAttributes redirectAttributes,
+                         Model model) {
+        // エラーの場合はDB登録しない
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("houseRegisterForm", houseRegisterForm);
+            return "admin/houses/register";
+        }
+
+        houseService.createHouse(houseRegisterForm);
+        redirectAttributes.addFlashAttribute("successMessage", "民宿を登録しました。");
+
+        return "redirect:/admin/houses";
     }
 }
