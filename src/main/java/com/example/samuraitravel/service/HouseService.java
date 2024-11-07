@@ -42,6 +42,16 @@ public class HouseService {
         return houseRepository.findById(id);
     }
 
+    /* 民宿のレコード数を取得 */
+    public long countHouses() {
+        return houseRepository.count();
+    }
+
+    /* IDが最も大きい民宿を取得 */
+    public House findFirstHouseByOrderByIdDesc() {
+        return houseRepository.findFirstByOrderByIdDesc();
+    }
+
     @Transactional
     public void createHouse(HouseRegisterForm houseRegisterForm) {
         House house = new House();
