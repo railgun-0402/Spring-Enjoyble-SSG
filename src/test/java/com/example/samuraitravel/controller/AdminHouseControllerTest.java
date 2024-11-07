@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("test")
+@ActiveProfiles("ci")
 public class AdminHouseControllerTest {
     /* Testでは簡潔性を優先し、field injection */
     @Autowired
