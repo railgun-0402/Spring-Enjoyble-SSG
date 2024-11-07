@@ -7,4 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface HouseRepository extends JpaRepository<House, Integer> {
     public Page<House> findByNameLike(String keyword, Pageable pageable);
+
+    // idが最も大きい民宿データを取得
+    public House findFirstByOrderByIdDesc();
 }

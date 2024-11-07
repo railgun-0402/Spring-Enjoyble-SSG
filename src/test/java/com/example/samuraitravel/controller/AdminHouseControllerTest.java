@@ -1,13 +1,23 @@
 package com.example.samuraitravel.controller;
 
+import com.example.samuraitravel.service.HouseService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -18,6 +28,9 @@ public class AdminHouseControllerTest {
     /* Testでは簡潔性を優先し、field injection */
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private HouseService houseService;
 
     /* 民宿一覧 */
     @Test
@@ -87,5 +100,40 @@ public class AdminHouseControllerTest {
         mockMvc.perform(get("/admin/houses/register"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("admin/houses/register"));
+    }
+
+
+    /* 民宿登録(DB) */
+    @Test
+    @Transactional
+    public void 未ログインの場合は民宿を登録せずにログインページにリダイレクトする() throws Exception {
+        // before Test Record Count
+        long countBefore = houseService.countHouses();
+
+        // テスト用の画像ファイルデータを用意する
+        Path filePath = Paths.get("src/main/resources/static/storage/house01.jpg");
+        String fileName = filePath.getFileName().toString();
+        String fileType = Files.probeContentType(filePath);
+        byte[] bytes = Files.readAllBytes(filePath);
+
+        MockMultipartFile imageFile = new MockMultipartFile("imageFile", fileName, fileType, bytes);
+
+        mockMvc.perform(MockMvcRequestBuilders.multipart("/admin/houses/create").file(imageFile)
+                .with(csrf())
+                .param("name", "テスト民宿名")
+                .param("description", "テスト説明")
+                .param("price", "5000")
+                .param("capacity", "5")
+                .param("postalCode", "000-0000")
+                .param("address", "テスト住所")
+                .param("phoneNumber", "000-000-000"))
+             .andExpect(status().is3xxRedirection())
+             .andExpect(redirectedUrl("http://localhost/login"));
+
+        // テスト後のレコード数を取得する
+        long countAfter = houseService.countHouses();
+
+        // レコード数が変わっていないことを検証する
+        assertThat(countAfter).isEqualTo(countBefore);
     }
 }
