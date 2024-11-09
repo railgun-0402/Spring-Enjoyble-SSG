@@ -87,7 +87,6 @@
 		</dependency>
 
 		<!--Sentry-->
-		<!-- Sentry Spring Boot Starter -->
 		<!-- Sentry Spring Boot Starter (Spring Boot用Sentry統合) -->
 		<dependency>
 			<groupId>io.sentry</groupId>
