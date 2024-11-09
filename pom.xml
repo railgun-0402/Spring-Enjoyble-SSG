@@ -85,6 +85,22 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!--Sentry-->
+		<!-- Sentry Spring Boot Starter -->
+		<!-- Sentry Spring Boot Starter (Spring Boot用Sentry統合) -->
+		<dependency>
+			<groupId>io.sentry</groupId>
+			<artifactId>sentry-spring-boot-starter-jakarta</artifactId>
+			<version>6.19.1</version>
+		</dependency>
+
+		<!-- Sentry Logback Integration (LogbackとSentryの統合) -->
+		<dependency>
+			<groupId>io.sentry</groupId>
+			<artifactId>sentry-logback</artifactId>
+			<version>6.19.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
