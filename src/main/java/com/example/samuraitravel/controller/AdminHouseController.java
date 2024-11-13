@@ -1,6 +1,7 @@
 package com.example.samuraitravel.controller;
 
 import com.example.samuraitravel.entity.House;
+import com.example.samuraitravel.form.HouseEditForm;
 import com.example.samuraitravel.form.HouseRegisterForm;
 import com.example.samuraitravel.service.HouseService;
 import org.springframework.data.domain.Page;
@@ -84,5 +85,25 @@ public class AdminHouseController {
         redirectAttributes.addFlashAttribute("successMessage", "民宿を登録しました。");
 
         return "redirect:/admin/houses";
+    }
+
+    /* 民宿編集 */
+    @GetMapping("/{id}/edit")
+    public  String edit(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model) {
+        Optional<House> optionalHouse = houseService.findHouseById(id);
+
+        if (optionalHouse.isEmpty()) {
+            redirectAttributes.addFlashAttribute("errorMessage", "民宿が存在しません。");
+            return "redirect:/admin/houses";
+        }
+
+        House house = optionalHouse.get();
+        // 更新前の値をフォームに表示させたい
+        HouseEditForm houseEditForm = new HouseEditForm(house.getName(), null, house.getDescription(), house.getPrice(), house.getCapacity(), house.getPostalCode(), house.getAddress(), house.getPhoneNumber());
+
+        model.addAttribute("house", house);
+        model.addAttribute("houseEditForm", houseEditForm);
+
+        return "admin/houses/edit";
     }
 }
