@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="~{fragment :: meta}"></div>
+
+    <div th:replace="~{fragment :: styles}"></div>
+
+    <title>民宿情報編集</title>
+</head>
+<body>
+<div class="samuraitravel-wrapper">
+    <div th:replace="~{fragment :: header}"></div>
+
+    <main>
+        <div class="container pt-4 pb-5 samuraitravel-container">
+            <div class="row justify-content-center">
+                <div class="col-xl-5 col-lg-6 col-md-8">
+                    <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a th:href="@{/admin/houses}">民宿一覧</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{/admin/houses/__${house.id}__}">民宿詳細</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">民宿情報編集</li>
+                        </ol>
+                    </nav>
+
+                    <h1 class="mb-4 text-center">民宿情報編集</h1>
+
+                    <form method="post" th:action="@{/admin/houses/__${house.id}__/update}" th:object="${houseEditForm}" enctype="multipart/form-data">
+                        <div class="form-group row mb-3">
+                            <div class="col-md-4">
+                                <label for="name" class="col-form-label text-md-left fw-bold">民宿名</label>
+                            </div>
+                            <div class="col-md-8">
+                                <div th:if="${#fields.hasErrors('name')}" class="text-danger small mb-2" th:errors="*{name}"></div>
+                                <input type="text" class="form-control" th:field="*{name}" autofocus>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
+                            <div class="col-md-4">
+                                <label for="imageFile" class="col-form-label text-md-left fw-bold">民宿画像</label>
+                            </div>
+                            <div class="col-md-8">
+                                <div th:if="${#fields.hasErrors('imageFile')}" class="text-danger small mb-2" th:errors="*{imageFile}"></div>
+                                <input type="file" class="form-control" th:field="*{imageFile}">
+                            </div>
+                        </div>
+
+                        <!-- 選択された画像の表示場所 -->
+                        <div th:if="${house.imageName}" class="row" id="imagePreview"><img th:src="@{/storage/__${house.imageName}__}" class="mb-3"></div>
+                        <div th:unless="${house.imageName}" class="row" id="imagePreview"></div>
+
+                        <div class="form-group row mb-3">
+                            <div class="col-md-4">
+                                <label for="description" class="col-form-label text-md-left fw-bold">説明</label>
+                            </div>
+                            <div class="col-md-8">
+                                <div th:if="${#fields.hasErrors('description')}" class="text-danger small mb-2" th:errors="*{description}"></div>
+                                <textarea class="form-control" th:field="*{description}" cols="30" rows="5"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
+                            <div class="col-md-4">
+                                <label for="price" class="col-form-label text-md-left fw-bold">宿泊料金（単位：円）</label>
+                            </div>
+                            <div class="col-md-8">
+                                <div th:if="${#fields.hasErrors('price')}" class="text-danger small mb-2" th:errors="*{price}"></div>
+                                <input type="number" class="form-control" th:field="*{price}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
+                            <div class="col-md-4">
+                                <label for="capacity" class="col-form-label text-md-left fw-bold">定員（単位：人）</label>
+                            </div>
+                            <div class="col-md-8">
+                                <div th:if="${#fields.hasErrors('capacity')}" class="text-danger small mb-2" th:errors="*{capacity}"></div>
+                                <input type="number" class="form-control" th:field="*{capacity}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
+                            <div class="col-md-4">
+                                <label for="postalCode" class="col-form-label text-md-left fw-bold">郵便番号</label>
+                            </div>
+                            <div class="col-md-8">
+                                <div th:if="${#fields.hasErrors('postalCode')}" class="text-danger small mb-2" th:errors="*{postalCode}"></div>
+                                <input type="text" class="form-control" th:field="*{postalCode}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
+                            <div class="col-md-4">
+                                <label for="address" class="col-form-label text-md-left fw-bold">住所</label>
+                            </div>
+                            <div class="col-md-8">
+                                <div th:if="${#fields.hasErrors('address')}" class="text-danger small mb-2" th:errors="*{address}"></div>
+                                <input type="text" class="form-control" th:field="*{address}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
+                            <div class="col-md-4">
+                                <label for="phoneNumber" class="col-form-label text-md-left fw-bold">電話番号</label>
+                            </div>
+                            <div class="col-md-8">
+                                <div th:if="${#fields.hasErrors('phoneNumber')}" class="text-danger small mb-2" th:errors="*{phoneNumber}"></div>
+                                <input type="text" class="form-control" th:field="*{phoneNumber}">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group d-flex justify-content-center my-4">
+                            <button type="submit" class="btn text-white shadow-sm w-50 samuraitravel-btn">更新</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="~{fragment :: footer}"></div>
+</div>
+
+<div th:replace="~{fragment :: scripts}"></div>
+<script th:src="@{/js/preview.js}"></script>
+</body>
+</html>
