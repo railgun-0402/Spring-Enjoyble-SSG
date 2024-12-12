@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("ci")
+@ActiveProfiles("test")
 public class AdminHouseControllerTest {
     /* Testでは簡潔性を優先し、field injection */
     @Autowired
@@ -369,5 +369,40 @@ public class AdminHouseControllerTest {
         assertThat(house.getPostalCode()).isEqualTo("000-0000");
         assertThat(house.getAddress()).isEqualTo("テスト住所");
         assertThat(house.getPhoneNumber()).isEqualTo("000-000-000");
+    }
+
+    // ホテル削除
+    @Test
+    @Transactional
+    public void 未ログインの場合は民宿を削除せずにログインページにリダイレクトする() throws Exception {
+        mockMvc.perform(post("/admin/houses/1/update").with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("http://localhost/login"));
+
+        Optional<House> optionalHouse = houseService.findHouseById(1);
+        assertThat(optionalHouse).isPresent();
+    }
+
+    @Test
+    @WithUserDetails("taro.samurai@example.com")
+    @Transactional
+    public void 一般ユーザーとしてログイン済みの場合は民宿を削除せずに403エラーが発生する() throws Exception {
+        mockMvc.perform(post("/admin/houses/1/update").with(csrf()))
+                .andExpect(status().isForbidden());
+
+        Optional<House> optionalHouse = houseService.findHouseById(1);
+        assertThat(optionalHouse).isPresent();
+    }
+
+    @Test
+    @WithUserDetails("hanako.samurai@example.com")
+    @Transactional
+    public void 管理者としてログイン済みの場合は民宿削除後に民宿一覧ページにリダイレクトする() throws Exception {
+        mockMvc.perform(post("/admin/houses/1/delete").with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/admin/houses"));
+
+        Optional<House> optionalHouse = houseService.findHouseById(1);
+        assertThat(optionalHouse).isEmpty();
     }
 }

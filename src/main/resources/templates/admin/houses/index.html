@@ -49,6 +49,7 @@
                                 <th scope="col">住所</th>
                                 <th scope="col">電話番号</th>
                                 <th scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -59,6 +60,24 @@
                                 <td th:text="${house.address}"></td>
                                 <td th:text="${house.phoneNumber}"></td>
                                 <td><a th:href="@{/admin/houses/__${house.id}__}">詳細</a></td>
+                                <td><a href="#" class="samuraitravel-link-danger" data-bs-toggle="modal"  th:data-bs-target="${'#deleteHouseModal' + house.id}">削除</a></td>
+
+                                <!-- 削除用モーダル -->
+                                <div class="modal fade" th:id="${'deleteHouseModal' + house.id}" tabindex="-1" th:aria-labelledby="${'deleteHouseModalLabel' + house.id}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" th:id="${'deleteHouseModalLabel' + house.id}" th:text="${house.name + 'を削除してもよろしいですか？'}"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form method="post"th:action="@{/admin/houses/__${house.id}__/delete}">
+                                                    <button type="submit" class="btn samuraitravel-btn-danger text-white shadow-sm">削除</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </tr>
                             </tbody>
                         </table>
