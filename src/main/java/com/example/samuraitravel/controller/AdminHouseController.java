@@ -136,4 +136,21 @@ public class AdminHouseController {
 
         return "redirect:/admin/houses";
     }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes, Model model) {
+        Optional<House> optionalHouse = houseService.findHouseById(id);
+
+        if (optionalHouse.isEmpty()) {
+            redirectAttributes.addFlashAttribute("errorMessage", "民宿が存在しません。");
+
+            return "redirect:/admin/houses";
+        }
+
+        House house = optionalHouse.get();
+        houseService.deleteHouse(house);
+        redirectAttributes.addFlashAttribute("successMessage", "民宿を削除しました。");
+
+        return "redirect:/admin/houses";
+    }
 }

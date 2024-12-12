@@ -54,6 +54,11 @@ public class HouseService {
     }
 
     @Transactional
+    public void deleteHouse(House house) {
+        houseRepository.delete(house);
+    }
+
+    @Transactional
     public void createHouse(HouseRegisterForm houseRegisterForm) {
         House house = new House();
         MultipartFile imageFile = houseRegisterForm.getImageFile();
