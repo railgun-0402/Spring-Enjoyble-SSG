@@ -23,7 +23,7 @@ AWSも使用する予定だが、費用と開発初期段階のため未定。
 <img src="https://skillicons.dev/icons?i=java,spring" /> <br /><br />
 
 ### フロントエンド
-<img src="https://skillicons.dev/icons?i=javascript,jquery" /> <br /><br />
+<img src="https://skillicons.dev/icons?i=html,css,javascript,jquery" /> <br /><br />
 
 ### その他インフラ
 <img src="https://skillicons.dev/icons?i=docker,mysql" /> <br /><br />
