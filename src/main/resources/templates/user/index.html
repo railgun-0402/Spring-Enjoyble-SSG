@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="~{fragment :: meta}"></div>
+
+    <div th:replace="~{fragment :: styles}"></div>
+
+    <title>会員情報</title>
+</head>
+<body>
+<div class="samuraitravel-wrapper">
+    <div th:replace="~{fragment :: header}"></div>
+
+    <main>
+        <div class="container pb-5 samuraitravel-container">
+            <div class="row justify-content-center">
+                <div class="col-xl-5 col-lg-6 col-md-8">
+                    <nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">会員情報</li>
+                        </ol>
+                    </nav>
+
+                    <h1 class="mb-3 text-center">会員情報</h1>
+
+                    <div class="d-flex justify-content-end align-items-end mb-3">
+                        <div>
+                            <a href="#">編集</a>
+                        </div>
+                    </div>
+
+                    <div th:if="${successMessage}" class="alert alert-info">
+                        <span th:text="${successMessage}"></span>
+                    </div>
+
+                    <div class="container mb-4">
+                        <div class="row pb-2 mb-2 border-bottom">
+                            <div class="col-4">
+                                <span class="fw-bold">氏名</span>
+                            </div>
+
+                            <div class="col">
+                                <span th:text="${user.name}"></span>
+                            </div>
+                        </div>
+
+                        <div class="row pb-2 mb-2 border-bottom">
+                            <div class="col-4">
+                                <span class="fw-bold">フリガナ</span>
+                            </div>
+
+                            <div class="col">
+                                <span th:text="${user.furigana}"></span>
+                            </div>
+                        </div>
+
+                        <div class="row pb-2 mb-2 border-bottom">
+                            <div class="col-4">
+                                <span class="fw-bold">郵便番号</span>
+                            </div>
+
+                            <div class="col">
+                                <span th:text="${user.postalCode}"></span>
+                            </div>
+                        </div>
+
+                        <div class="row pb-2 mb-2 border-bottom">
+                            <div class="col-4">
+                                <span class="fw-bold">住所</span>
+                            </div>
+
+                            <div class="col">
+                                <span th:text="${user.address}"></span>
+                            </div>
+                        </div>
+
+                        <div class="row pb-2 mb-2 border-bottom">
+                            <div class="col-4">
+                                <span class="fw-bold">電話番号</span>
+                            </div>
+
+                            <div class="col">
+                                <span th:text="${user.phoneNumber}"></span>
+                            </div>
+                        </div>
+
+                        <div class="row pb-2 mb-2 border-bottom">
+                            <div class="col-4">
+                                <span class="fw-bold">メールアドレス</span>
+                            </div>
+
+                            <div class="col">
+                                <span th:text="${user.email}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="~{fragment :: footer}"></div>
+</div>
+
+<div th:replace="~{fragment :: scripts}"></div>
+</body>
+</html>
