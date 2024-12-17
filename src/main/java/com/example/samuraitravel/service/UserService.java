@@ -3,6 +3,7 @@ package com.example.samuraitravel.service;
 import com.example.samuraitravel.entity.Role;
 import com.example.samuraitravel.entity.User;
 import com.example.samuraitravel.form.SignupForm;
+import com.example.samuraitravel.form.UserEditForm;
 import com.example.samuraitravel.repository.RoleRepository;
 import com.example.samuraitravel.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,5 +56,31 @@ public class UserService {
     public void enableUser(User user) {
         user.setEnabled(true);
         userRepository.save(user);
+    }
+
+    @Transactional
+    public void updateUser(User user, UserEditForm userEditForm) {
+        user.setName(userEditForm.getName());
+        user.setFurigana(userEditForm.getFurigana());
+        user.setPostalCode(userEditForm.getPostalCode());
+        user.setAddress(userEditForm.getAddress());
+        user.setPhoneNumber(userEditForm.getPhoneNumber());
+        user.setEmail(userEditForm.getEmail());
+
+        userRepository.save(user);
+    }
+
+    /*
+     * 指定したメルアドを持つユーザーを取得
+     */
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    /*
+     * メルアドが変更されているか確認する
+     */
+    public boolean isEmailChanged(UserEditForm userEditForm, User user) {
+        return !userEditForm.getEmail().equals(user.getEmail());
     }
 }
